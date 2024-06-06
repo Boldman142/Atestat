@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/4.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
-
+from datetime import timedelta
 from pathlib import Path
 import os
 
@@ -45,6 +45,14 @@ INSTALLED_APPS = [
 
     'rest_framework',
     'django_filters',
+    'rest_framework_simplejwt',
+    'drf_yasg',
+    'phonenumber_field',
+
+    'products',
+    'sales_net',
+    'users',
+    'auth_api',
 
 ]
 
@@ -89,6 +97,7 @@ DATABASES = {
         'USER': os.getenv('USER_BD'),
         'PASSWORD': os.getenv('PASSWORD_BD'),
         'HOST': os.getenv('HOST_BD'),
+        'PORT': os.getenv('PORT_BD'),
     }
 }
 
@@ -137,3 +146,21 @@ STATICFILES_DIRS = (
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
+}
+
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=60),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
+}
+
+
+AUTH_USER_MODEL = 'users.User'
+LOGOUT_REDIRECT_URL = '/'
+LOGIN_REDIRECT_URL = '/'
+LOGIN_URL = '/'
