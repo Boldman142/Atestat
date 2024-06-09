@@ -6,16 +6,20 @@ User = get_user_model()
 
 
 class UserRegistrationSerializer(BaseUserRegistrationSerializer):
-    password = serializers.CharField(write_only=True)
+    """
+    Регистрация пользователя. (Модель User)
+    """
+    password = serializers.CharField(write_only=True, required=True)
 
     class Meta:
         model = User
-        fields = ['first_name', 'last_name', 'phone', 'email', 'password']
+        fields = ['id', 'first_name', 'username', 'phone', 'last_name', 'is_active', 'email', 'password']
 
 
 class CurrentUserSerializer(serializers.ModelSerializer):
-    password = serializers.CharField(write_only=True)
+    """Отображение данных пользователя. (Модель User)"""
+    password = serializers.CharField(write_only=True, required=True)
 
     class Meta:
         model = User
-        fields = ['first_name', 'last_name', 'phone', 'email', 'password']
+        fields = ['id', 'first_name', 'last_name', 'email', 'password']

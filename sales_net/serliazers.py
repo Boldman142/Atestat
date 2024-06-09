@@ -8,7 +8,7 @@ class SalesNetSerializer(serializers.ModelSerializer):
     author_first_name = serializers.CharField(source="author.first_name", read_only=True)
     author_last_name = serializers.CharField(source="author.last_name", read_only=True)
     product = ProductSerializer(many=True, required=False)
-    supplier = serializers.SlugRelatedField(slug_field='title', queryset=SalesNet.objects.all())
+    provider = serializers.SlugRelatedField(slug_field='title', queryset=SalesNet.objects.all())
 
     class Meta:
         model = SalesNet
